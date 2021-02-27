@@ -1,22 +1,18 @@
 module.exports = function check(str, bracketsConfig) {
-  module.exports = function check(str, bracketsConfig) {
-    if (str.length % 2 !== 0)  return false;
-    let input = str.split('');
-    let brackets = {};
-    let stack = [];
+  let arrBrackets = typeof(str) === 'string'? str.split('') :str;
+  let isFoundAnyPair = 0;
 
-  for (let i = 0; i < bracketsConfig.length; i++) {
-    brackets[bracketsConfig[i][0]] = bracketsConfig[i][1];    
-  }  
-  
-  for (let j = 0; j < input.length; j++) {  
-    if (brackets[stack[stack.length - 1]] === input[j])  {
-      stack.pop();        
-    } else { 
-      stack.push(input[j]);
-    }       
-  }
-
-        return stack.length === 0;
+  for (let i = 0; i < arrBrackets.length; i++) {
+    for (let j = 0; j < bracketsConfig.length; j++) {
+      let pairs = bracketsConfig[j];
+      if ((pairs[0] === arrBrackets[i] && pairs[1] === arrBrackets[i + 1])) {
+        arrBrackets[i] = null;
+        arrBrackets[i + 1] = null;
+        isFoundAnyPair = 1;
+      }
+      arrBrackets = arrBrackets.filter((item) => item !== null)
     }
+  }
+  if (isFoundAnyPair) return check(arrBrackets, bracketsConfig); // пока находит пары -рекурсия
+  else return !arrBrackets.length// массив пустой- все скобки закрыты , не пустой- не все
 }

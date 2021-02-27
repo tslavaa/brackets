@@ -13,6 +13,6 @@ module.exports = function check(str, bracketsConfig) {
       arrBrackets = arrBrackets.filter((item) => item !== null)
     }
   }
-  if (isFoundAnyPair) return check(arrBrackets, bracketsConfig); // пока находит пары -рекурсия
-  else return !arrBrackets.length// массив пустой- все скобки закрыты , не пустой- не все
+  if (isFoundAnyPair) return check(arrBrackets, bracketsConfig); 
+  else return !arrBrackets.length
 }
